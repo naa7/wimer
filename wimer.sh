@@ -2,7 +2,7 @@
 WorkTimer() {
     local tasksCompleted=0
     local breaksTaken=0
-    ALARM_FILE="/usr/share/sounds/alarm.wav"
+    ALARM_FILE="/usr/share/sounds/wimer/alarm.wav"
     
     run_timer() {
         local total_seconds=$1
