@@ -118,13 +118,13 @@ WorkTimer() {
                 displayText+="\n\n"
             fi
             displayText+="Set Task Name and Duration"
-            timeInput=$(zenity --forms --title="Wimer" --text="$displayText" \
+            timeInput=$(zenity --forms --title="Work Timer" --text="$displayText" \
             --add-entry="Name (optional)" --add-entry="Hours" --add-entry="Minutes" --ok-label="Start" --cancel-label="Exit" 2>/dev/null) || exit 0
             n=$(echo "$timeInput" | cut -d '|' -f1)
             h=$(echo "$timeInput" | cut -d '|' -f2)
             m=$(echo "$timeInput" | cut -d '|' -f3)
             
-            [[ ! "$n" =~ ^[0-9A-Za-z\s-_.]+$ ]] && [ -n "$n" ] && n=""
+            
             [[ ! "$h" =~ ^[0-9]+$ ]] && [ -n "$h" ] && h=""
             [[ ! "$m" =~ ^[0-9]+$ ]] && [ -n "$m" ] && m=""
             [ -z "$n" ] && n="Task $((tasksCompleted + 1))"

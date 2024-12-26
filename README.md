@@ -2,6 +2,12 @@
 
 ![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103) <img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg"> <img src="https://img.shields.io/github/stars/naa7/wimer?style=social"> <img src="https://img.shields.io/github/repo-size/naa7/wimer"> [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/naa7/wimer/LICENSE)
 
+![wimer1](https://github.com/naa7/wimer/blob/main/1.png)
+![wimer2](https://github.com/naa7/wimer/blob/main/2.png)
+![wimer3](https://github.com/naa7/wimer/blob/main/3.png)
+![wimer4](https://github.com/naa7/wimer/blob/main/4.png)
+![wimer5](https://github.com/naa7/wimer/blob/main/5.png)
+
 The idea of this project is to build a simple task timer. It uses zenity to ask a user for the required 
 time to start counting down. The user can either enter hours and minutes, hours without minutes, or minutes 
 without hours, it accepts all. Once the timer stops, a 2 second alert will start and a notification pop up 
