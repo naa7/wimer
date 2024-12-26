@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Wimer
+StartupWMClass=Wimer
+Comment=Simple Task Timer
+Exec=/usr/bin/wimer
+Type=Application
+Categories=Utility;
+Path=/usr/bin
+Icon=/usr/share/icons/wimer/wimer.png
+

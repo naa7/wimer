@@ -1,16 +1,10 @@
-# work_timer
+# Wimer
 
-![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103) <img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg"> <img src="https://img.shields.io/github/stars/naa7/work_timer?style=social"> <img src="https://img.shields.io/github/repo-size/naa7/work_timer"> [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/naa7/work_timer/LICENSE)
+![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103) <img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg"> <img src="https://img.shields.io/github/stars/naa7/wimer?style=social"> <img src="https://img.shields.io/github/repo-size/naa7/wimer"> [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/naa7/wimer/LICENSE)
 
-![work_timer1](https://github.com/naa7/work_timer/blob/main/timer_1.gif?style=centerme)
-![work_timer2](https://github.com/naa7/work_timer/blob/main/timer_2.gif?style=centerme)
-
-The idea of this project is to build a terminal based work timer. It uses zenity to ask a user for the required 
+The idea of this project is to build a simple task timer. It uses zenity to ask a user for the required 
 time to start counting down. The user can either enter hours and minutes, hours without minutes, or minutes 
-without hours, it accepts all. There are two ways to start the timer. First, the program will run in the 
-current terminal window and when it ends, the output will be removed. Second, the program will run in a new 
-window of a set size (20x10) to save screen space for other tasks and once program ends, the timer terminal 
-window will close. In both ways, Once the timer stops, a 2 second alert will start and a notification pop up 
+without hours, it accepts all. Once the timer stops, a 2 second alert will start and a notification pop up 
 window will apear to notify user of the end of program.
 
 
@@ -19,32 +13,18 @@ window will apear to notify user of the end of program.
 
  Clone the repository:
   
-    $ cd && git clone https://github.com/naa7/work_timer.git
+    $ cd && git clone https://github.com/naa7/wimer.git
 
- #### Choice 1, The program will run in the current terminal window
+ #### To run the program
 
-  1) Change Directory to `work_timer`. Example:
+  1) Change Directory to `wimer`. Example:
 
-    $ cd && cdwork_timer/
+    $ cd && cd wimer/
 
   2) Run the program:
  
-    $ sh workTimer 
+    $ sh wimer.sh 
 
-
- #### Choice 2, The program will run in a new window which will close after the program ends:
-   
-  1) Change Directory to `work_timer`. Example:
-
-    $ cd && cd work_timer/
-
-  2) Make the program & launcher executable:
-
-    $ chmod +x workTimer work_timer
-
-  3) Run `work_timer`:
-
-    $ ./work_timer 
 
 
 ## Optional
@@ -57,7 +37,7 @@ run `install.sh`
 
 Now, you can either open it from terminal
 
-    $ work_timer
+    $ wimer
 
 Or, open it from applications menu
 
