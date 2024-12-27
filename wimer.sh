@@ -2,7 +2,9 @@
 WorkTimer() {
     local tasksCompleted=0
     local breaksTaken=0
-    ALARM_FILE="/usr/share/sounds/wimer/alarm.wav"
+    local totalTaskTime=0
+    local totalBreakTime=0
+    ALARM_FILE="/usr/share/sounds/alarm.wav"
     
     run_timer() {
         local total_seconds=$1
@@ -11,6 +13,7 @@ WorkTimer() {
         if [ "$total_seconds" -le 0 ]; then
             return
         fi
+        totalTaskTime=$((totalTaskTime + total_seconds))
         
         (
             for ((i = 0; i <= total_seconds; i++)); do
@@ -24,6 +27,7 @@ WorkTimer() {
                         formatted_time="$(printf "%02d:%02d:%02d" $(((total_seconds - i) / 3600)) $(((total_seconds - i) % 3600 / 60)) $(((total_seconds - i) % 60)))"
                     ;;
                 esac
+                
                 echo "# <span><b>   Remaining time: $formatted_time</b></span>"
                 sleep 1
             done
@@ -48,6 +52,7 @@ WorkTimer() {
                         ;;
                         *) bmin=0 ;;
                     esac
+                    totalBreakTime=$((totalBreakTime + bmin * 60))
                     run_timer "$((bmin * 60))" "Break $((breaksTaken + 1))" "break"
                 fi
                 elif [ "$title" == "Break $((breaksTaken + 1))" ]; then
@@ -63,6 +68,28 @@ WorkTimer() {
         local total_seconds=$((hours * 3600 + minutes * 60))
         
         run_timer "$total_seconds" "$taskName" "task"
+    }
+    
+    showStats() {
+        totalTaskHours=$((totalTaskTime / 3600))
+        totalTaskMinutes=$(( (totalTaskTime % 3600) / 60 ))
+        totalTaskSeconds=$((totalTaskTime % 60))
+        
+        totalBreakHours=$((totalBreakTime / 3600))
+        totalBreakMinutes=$(( (totalBreakTime % 3600) / 60 ))
+        totalBreakSeconds=$((totalBreakTime % 60))
+        
+        zenity --info --title="Task and Break Information" \
+        --width=300 \
+        --text="\
+        <b>Tasks Completed:</b> $tasksCompleted\n\
+        ---------------------------------------------\n\
+        <b>Breaks Taken:</b> $breaksTaken\n\
+        ---------------------------------------------\n\
+        <b>Total Task Time Spent:</b> ${totalTaskHours}h ${totalTaskMinutes}m\n\
+        ---------------------------------------------\n\
+        <b>Total Break Time Taken:</b> ${totalBreakHours}h ${totalBreakMinutes}m" \
+        2>/dev/null
     }
     
     start() {
@@ -107,19 +134,24 @@ WorkTimer() {
         fi
         
         while true; do
-            displayText=""
+            displayText="Set Task Name and Duration"
             if [ "$tasksCompleted" -gt 0 ]; then
-                displayText+="Tasks Completed: $tasksCompleted"
+                timeInput=$(zenity --forms --title="Work Timer" --text="$displayText" --width=350 \
+                    --add-entry="Name (optional)" \
+                    --add-entry="Hours" \
+                    --add-entry="Minutes" \
+                    --extra-button="Show Stats" \
+                    --ok-label="Start" \
+                --cancel-label="Exit" 2>/dev/null)
+                if [[ "$timeInput" == "" ]]; then
+                    exit 0
+                    elif [[ "$timeInput" == "Show Stats" ]]; then
+                    showStats
+                fi
+            else
+                timeInput=$(zenity --forms --title="Work Timer" --text="$displayText" --width=350 \
+                --add-entry="Name (optional)" --add-entry="Hours" --add-entry="Minutes" --ok-label="Start" --cancel-label="Exit" 2>/dev/null) || exit 0
             fi
-            if [ "$breaksTaken" -gt 0 ]; then
-                displayText+="\nBreaks Taken: $breaksTaken"
-            fi
-            if [ "$displayText" != "" ]; then
-                displayText+="\n\n"
-            fi
-            displayText+="Set Task Name and Duration"
-            timeInput=$(zenity --forms --title="Work Timer" --text="$displayText" \
-            --add-entry="Name (optional)" --add-entry="Hours" --add-entry="Minutes" --ok-label="Start" --cancel-label="Exit" 2>/dev/null) || exit 0
             n=$(echo "$timeInput" | cut -d '|' -f1)
             h=$(echo "$timeInput" | cut -d '|' -f2)
             m=$(echo "$timeInput" | cut -d '|' -f3)
