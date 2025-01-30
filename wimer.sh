@@ -27,7 +27,7 @@ Wimer() {
                 fi
                 
                 echo "# <span><b>$formatted_time</b></span>"
-                # sleep 1
+                sleep 1
             done
         ) | zenity --progress --title="$2" --width=200 --height=200 --auto-close --percentage=0 --cancel-label="Stop" 2>/dev/null
     }
@@ -172,9 +172,11 @@ Wimer() {
     handle_time_input() {
         local time_input=$1
         if [[ "$time_input" == "" ]]; then
-            exit_confirmation=$(zenity --question --text="Do you want to save the summary before exiting?" --ok-label="Yes" --cancel-label="No" 2>/dev/null)
-            if [[ $? -eq 0 ]]; then
-                save_summary
+            if [ "$tasks_completed" -gt 0 ]; then
+                exit_confirmation=$(zenity --question --text="Do you want to save the summary before exiting?" --ok-label="Yes" --cancel-label="No" 2>/dev/null)
+                if [[ $? -eq 0 ]]; then
+                    save_summary
+                fi
             fi
             exit 0
             elif [[ "$time_input" == "Show Stats" ]]; then
